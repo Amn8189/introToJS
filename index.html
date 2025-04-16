@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+    <button id="button1" class="b1">Click Me</button>
+    <button id="incrBtn" class="b1">Add</button>
+    <button id="decrBtn" class="b1">Subtract</button>
+    <div id="value">0</div>
+
+    <script type = "text/javascript">
+        let startValue = 0;
+        function add(){
+            startValue += 1;
+            div.textContent = startValue; //textContent changes the text in the element.
+        }
+        function subtract(){
+            startValue -= 1;
+            div.textContent = startValue;
+        }
+
+        let incBtn = document.getElementById("incrBtn");
+        let decBtn = document.getElementById("decrBtn");
+        let div = document.getElementById("value");
+        incBtn.addEventListener("mouseenter", add); //mouseenter is hover
+        decBtn.addEventListener("click", subtract);
+    </script>
+
+
+    <script type="text/javascript">
+        // document <dom> - Document Object Model
+        function sayHello() {
+            console.log("Hello.");
+        }
+        function sayClicked() {
+            console.log("clicked.")
+        }
+        document.addEventListener('DOMContentLoaded', sayHello)
+        let button1 = document.getElementById("button1");
+        console.log(button1.textContent)
+        console.log(button1.className)
+        button1.textContent = "A New Name"
+        button1.addEventListener("click", sayClicked)
+    </script>
+</body>
