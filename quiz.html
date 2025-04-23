@@ -295,6 +295,10 @@
             ans4.textContent = choices[3];
             currentQuestion += 1;
 
+            for (let i=0; i<timeoutIds.length; i+=1){
+                clearTimout(timeoutIds[i]);
+            }
+            
             //calling timer function
             callTimer();
         }
@@ -308,9 +312,10 @@
 
         //TIMER
         let timeLeft = 60;
+        let timeoutIds = [];
         function callTimer(){
             for (let i = timeLeft; i>-1; i-=1){
-                setTimeout(function(){
+                let timeoutId = setTimeout(function(){
                     let timer = document.getElementById("time-remaining");
                     timer.textContent = i;
                     if (i == 0){
@@ -319,6 +324,7 @@
                     timeLeft -+ 1;
                 }, ((60-i)*1000));
                 //var timeLeft1 = i;
+                timeoutIds.push(timeoutId);
             }
             
         }
