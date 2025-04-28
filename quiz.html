@@ -285,22 +285,39 @@
             let ans = currentQ["correct"];
             let qText = document.getElementById("question-text");
             qText.textContent = q;
-            let ans1 = document.getElementById("choice1");
-            let ans2 = document.getElementById("choice2");
-            let ans3 = document.getElementById("choice3");
-            let ans4 = document.getElementById("choice4");
             ans1.textContent = choices[0];
             ans2.textContent = choices[1];
             ans3.textContent = choices[2];
             ans4.textContent = choices[3];
+
+            let questionNumber = document.getElementById("question-number");
+            questionNumber.textContent = (currentQuestion+1);
+
+            let progBar = document.getElementById("progress-bar");
+            progBar.style.width = `${(currentQuestion) * 10}%`; //converts to a text.
+
             currentQuestion += 1;
 
+            if (currentQuestion == 10){
+                let submitBtn = document.getElementById("next-btn");
+                submitBtn.textContent = "Submit";
+            }
+
             for (let i=0; i<timeoutIds.length; i+=1){
-                clearTimout(timeoutIds[i]);
+                clearTimeout(timeoutIds[i]);
             }
             
             //calling timer function
             callTimer();
+        }
+
+        let answersChosen = {}
+        for (let i=0; i<10; i+=1){
+            answersChosen[i]=0;
+        }
+        function updateScore(){
+            let correctAns = allQuestions[currentQuestion]["correct"];
+            console.log(correctAns);
         }
 
         //event listeners
@@ -309,6 +326,16 @@
         startBtn.addEventListener("click", revealQuestionCard);
         let nextBtn = document.getElementById("next-btn");
         nextBtn.addEventListener("click", function(){revealQuestion(currentQuestion)});
+        let playAgain = document.getElementById("play-again-btn");
+        playAgain.addEventListener("click", function(){location.reload()});
+        let ans1 = document.getElementById("choice1");
+        let ans2 = document.getElementById("choice2");
+        let ans3 = document.getElementById("choice3");
+        let ans4 = document.getElementById("choice4");
+        ans1.addEventListener("click", updateScore);
+        ans2.addEventListener("click", updateScore);
+        ans3.addEventListener("click", updateScore);
+        ans4.addEventListener("click", updateScore);
 
         //TIMER
         let timeLeft = 60;
