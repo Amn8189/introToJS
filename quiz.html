@@ -105,21 +105,21 @@
 
                 <!-- Answers -->
                 <div class="space-y-3 mb-6" id="answers-container">
-                    <button class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice0" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">A</span>
-                        <span id="choice1">Paris</span>
+                        <span>Paris</span>
                     </button>
-                    <button class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice1" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">B</span>
-                        <span id="choice2">London</span>
+                        <span>London</span>
                     </button>
-                    <button class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice2" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">C</span>
-                        <span id="choice3">Berlin</span>
+                        <span>Berlin</span>
                     </button>
-                    <button class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice3" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">D</span>
-                        <span id="choice4">Rome</span>
+                        <span>Rome</span>
                     </button>
                 </div>
 
@@ -311,13 +311,27 @@
             callTimer();
         }
 
-        let answersChosen = {}
-        for (let i=0; i<10; i+=1){
-            answersChosen[i]=0;
+        let marks = {}
+        let chosenAns
+        for (let i=1; i<11; i+=1){
+            marks[i]=0;
         }
-        function updateScore(){
-            let correctAns = allQuestions[currentQuestion]["correct"];
+        function updateScore(event){
+            let correctAns = allQuestions[currentQuestion-1]["correct"];
+            let a = `choice${correctAns}` //changes to text "choice1,2" etc
             console.log(correctAns);
+            console.log(event.target.id);
+            if (event.target.id == a){
+                marks[currentQuestion] = 10;
+                
+                console.log(marks);
+            }
+            changeBtnColour(event.target.id);
+        }
+
+        function changeBtnColour(id){
+            let clickedBtn = document.getElementById(id);
+            clickedBtn.classList.add("bg-green");
         }
 
         //event listeners
@@ -328,10 +342,10 @@
         nextBtn.addEventListener("click", function(){revealQuestion(currentQuestion)});
         let playAgain = document.getElementById("play-again-btn");
         playAgain.addEventListener("click", function(){location.reload()});
-        let ans1 = document.getElementById("choice1");
-        let ans2 = document.getElementById("choice2");
-        let ans3 = document.getElementById("choice3");
-        let ans4 = document.getElementById("choice4");
+        let ans1 = document.getElementById("choice0");
+        let ans2 = document.getElementById("choice1");
+        let ans3 = document.getElementById("choice2");
+        let ans4 = document.getElementById("choice3");
         ans1.addEventListener("click", updateScore);
         ans2.addEventListener("click", updateScore);
         ans3.addEventListener("click", updateScore);
