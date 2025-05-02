@@ -309,6 +309,15 @@
             
             //calling timer function
             callTimer();
+
+            ans1.classList.remove(["bg-green-300", "bg-white"]);
+            ans2.classList.remove(["bg-green-300", "bg-white"]);
+            ans3.classList.remove(["bg-green-300", "bg-white"]);
+            ans4.classList.remove(["bg-green-300", "bg-white"]);
+            ans1.classList.add("bg-white");
+            ans2.classList.add("bg-white");
+            ans3.classList.add("bg-white");
+            ans4.classList.add("bg-white");
         }
 
         let marks = {}
@@ -331,7 +340,9 @@
 
         function changeBtnColour(id){
             let clickedBtn = document.getElementById(id);
-            clickedBtn.classList.add("bg-green");
+            console.log(clickedBtn);
+            clickedBtn.classList.toggle("bg-white");
+            clickedBtn.classList.toggle("bg-green-300");
         }
 
         //event listeners
