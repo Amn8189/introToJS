@@ -330,7 +330,7 @@
             let a = `choice${correctAns}` //changes to text "choice1,2" etc
             console.log(correctAns);
             console.log(event.target.id);
-            if (event.target.id == a){
+            if (event.target.id == a){ // a = the corect answer as a text.
                 marks[currentQuestion] = 10;
                 
                 console.log(marks);
@@ -361,6 +361,23 @@
         ans2.addEventListener("click", updateScore);
         ans3.addEventListener("click", updateScore);
         ans4.addEventListener("click", updateScore);
+        //SAVING THE SCORE:
+        let saveBtn = document.getElementById("save-score-btn");
+        saveBtn.addEventListener("click", saveScore);
+        function saveScore(argument){
+            //TODO - get the typed name, add up the marks, save to local.
+            //to save <localstorage.setItem(typedname, totalscore)
+            let typedName = document.getElementById("player-name");
+            let nameText = typedName.value;
+            let sum = 0;
+            for (let i=0; i<10; i+=1){
+                sum += marks[i];
+            }
+
+            localStorage.setItem(nameText, sum);
+        }
+        /* localStorage.setItem("English", 40); //accessing the browser's local storage.
+           localStorage.setItem("French", 50); */
 
         //TIMER
         let timeLeft = 60;
@@ -381,7 +398,7 @@
             
         }
 
-
+        
     </script>
 </body>
 </html>
