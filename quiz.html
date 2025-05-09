@@ -276,6 +276,14 @@
                 resultsScreen.classList.remove("hidden");
                 let quizContainer = document.getElementById("quiz-container");
                 quizContainer.classList.add("hidden");
+                let sum = 0;
+                for (let i=1; i<11; i+=1){
+                    sum += marks[i];
+                }
+                let playerScore = document.getElementById("score-percentage");
+                playerScore.textContent = sum;
+                let finalScore = document.getElementById("final-score");
+                finalScore.textContent = sum/10;
                 return;
             };
             let currentQ = allQuestions[qNumber];
@@ -338,6 +346,24 @@
             changeBtnColour(event.target.id);
         }
 
+        //FUNCTION TO UPDATE THE LEADERBOARD SCORES
+        function updateLeaderboard(){
+            let allScores = {...localStorage}; // "..." gets its contents 
+            let score = Object.values(allScores);
+            let names = Object.keys(allScores);
+            for (let i=0; i<score.length; i+=1){
+                for (let j=i+1; j<score.length; j+=1){
+                    if (score[i] < score[j]){
+                        score[i], score[j] = score[j], score[i];
+                        names[i], names[j] = names[j], names[i];
+                    }
+                }
+            }
+            console.log(score);
+            
+        }
+        updateLeaderboard();
+
         function changeBtnColour(id){
             let clickedBtn = document.getElementById(id);
             console.log(clickedBtn);
@@ -370,7 +396,7 @@
             let typedName = document.getElementById("player-name");
             let nameText = typedName.value;
             let sum = 0;
-            for (let i=0; i<10; i+=1){
+            for (let i=1; i<11; i+=1){
                 sum += marks[i];
             }
 
