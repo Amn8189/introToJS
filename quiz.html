@@ -158,23 +158,23 @@
                         <li class="flex justify-between items-center p-3 bg-white rounded-lg">
                             <div class="flex items-center">
                                 <span class="w-6 h-6 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center text-xs font-medium mr-3">1</span>
-                                <span class="font-medium">Player One</span>
+                                <span id="p1Name" class="font-medium">Player One</span>
                             </div>
-                            <span class="font-semibold">90%</span>
+                            <span id="p1Score" class="font-semibold">90%</span>
                         </li>
                         <li class="flex justify-between items-center p-3 bg-white rounded-lg">
                             <div class="flex items-center">
                                 <span class="w-6 h-6 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center text-xs font-medium mr-3">2</span>
-                                <span class="font-medium">Player Two</span>
+                                <span id="p2Name" class="font-medium">Player Two</span>
                             </div>
-                            <span class="font-semibold">85%</span>
+                            <span id="p2Score" class="font-semibold">85%</span>
                         </li>
                         <li class="flex justify-between items-center p-3 bg-white rounded-lg">
                             <div class="flex items-center">
                                 <span class="w-6 h-6 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-xs font-medium mr-3">3</span>
-                                <span class="font-medium">Player Three</span>
+                                <span id="p3Name" class="font-medium">Player Three</span>
                             </div>
-                            <span class="font-semibold">80%</span>
+                            <span id="p3Score" class="font-semibold">80%</span>
                         </li>
                     </ul>
                 </div>
@@ -351,6 +351,8 @@
             let allScores = {...localStorage}; // "..." gets its contents 
             let score = Object.values(allScores);
             let names = Object.keys(allScores);
+            let playerNames = [];
+            let playerScores = [];
             for (let i=0; i<score.length; i+=1){
                 for (let j=i+1; j<score.length; j+=1){
                     if (score[i] < score[j]){
@@ -359,7 +361,11 @@
                     }
                 }
             }
-            console.log(score);
+            for (let i=1; i<4; i+=1){
+                document.getElementById(`p${i}Name`).textContent = names[i-1];
+                document.getElementById(`p${i}Score`).textContent = score[i-1];
+            }
+            
             
         }
         updateLeaderboard();
