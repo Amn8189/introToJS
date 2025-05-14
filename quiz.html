@@ -32,6 +32,12 @@
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+        } 
+        .choiceColourWhite {
+            background-color: white;
+        }
+        .choiceSelect {
+            background-color: green;
         }
     </style>
 </head>
@@ -105,19 +111,19 @@
 
                 <!-- Answers -->
                 <div class="space-y-3 mb-6" id="answers-container">
-                    <button id="choice0" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice0" class="choiceColourWhite answer-btn w-full flex items-center p-4 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">A</span>
                         <span>Paris</span>
                     </button>
-                    <button id="choice1" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice1" class="choiceColourWhite answer-btn w-full flex items-center p-4 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">B</span>
                         <span>London</span>
                     </button>
-                    <button id="choice2" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice2" class="choiceColourWhite answer-btn w-full flex items-center p-4 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">C</span>
                         <span>Berlin</span>
                     </button>
-                    <button id="choice3" class="answer-btn w-full flex items-center p-4 bg-white hover:bg-gray-50 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
+                    <button id="choice3" class="choiceColourWhite answer-btn w-full flex items-center p-4 border border-gray-100 rounded-xl transition duration-200 hover:shadow-md">
                         <span class="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mr-3 font-medium">D</span>
                         <span>Rome</span>
                     </button>
@@ -318,14 +324,7 @@
             //calling timer function
             callTimer();
 
-            ans1.classList.remove(["bg-green-300", "bg-white"]);
-            ans2.classList.remove(["bg-green-300", "bg-white"]);
-            ans3.classList.remove(["bg-green-300", "bg-white"]);
-            ans4.classList.remove(["bg-green-300", "bg-white"]);
-            ans1.classList.add("bg-white");
-            ans2.classList.add("bg-white");
-            ans3.classList.add("bg-white");
-            ans4.classList.add("bg-white");
+            revertColours();
         }
 
         let marks = {}
@@ -349,6 +348,7 @@
         //FUNCTION TO UPDATE THE LEADERBOARD SCORES
         function updateLeaderboard(){
             let allScores = {...localStorage}; // "..." gets its contents 
+            console.log(allScores);
             let score = Object.values(allScores);
             let names = Object.keys(allScores);
             let playerNames = [];
@@ -361,20 +361,29 @@
                     }
                 }
             }
-            for (let i=1; i<4; i+=1){
+            for (let i=1; i<names.length; i+=1){
                 document.getElementById(`p${i}Name`).textContent = names[i-1];
                 document.getElementById(`p${i}Score`).textContent = score[i-1];
             }
-            
-            
         }
-        updateLeaderboard();
 
         function changeBtnColour(id){
+            revertColours();
             let clickedBtn = document.getElementById(id);
             console.log(clickedBtn);
-            clickedBtn.classList.toggle("bg-white");
-            clickedBtn.classList.toggle("bg-green-300");
+            clickedBtn.classList.toggle("choiceColourWhite");
+            clickedBtn.classList.toggle("choiceSelect");
+        }
+
+        function revertColours(){
+            ans1.classList.remove(["choiceSelect", "choiceColourWhite"]);
+            ans2.classList.remove(["choiceSelect", "choiceColourWhite"]);
+            ans3.classList.remove(["choiceSelect", "choiceColourWhite"]);
+            ans4.classList.remove(["choiceSelect", "choiceColourWhite"]);
+            ans1.classList.add("choiceColourWhite");
+            ans2.classList.add("choiceColourWhite");
+            ans3.classList.add("choiceColourWhite");
+            ans4.classList.add("choiceColourWhite");
         }
 
         //event listeners
@@ -407,6 +416,7 @@
             }
 
             localStorage.setItem(nameText, sum);
+            updateLeaderboard();
         }
         /* localStorage.setItem("English", 40); //accessing the browser's local storage.
            localStorage.setItem("French", 50); */
